@@ -1,0 +1,152 @@
+openapi: 3.0.3
+info:
+  title: API - Proyecto Adopciones
+  version: 1.0.0
+  description: Documentación Users
+servers:
+  - url: http://localhost:4000
+    description: Local
+tags:
+  - name: Users
+
+components:
+  schemas:
+    User:
+      type: object
+      properties:
+        _id: { type: string, example: "66fa1f8f8a4a0b53c1c7e8b2" }
+        first_name: { type: string, example: "Juan" }
+        last_name:  { type: string, example: "Pérez" }
+        email:      { type: string, example: "juan.perez@example.com" }
+        role:       { type: string, enum: [user, admin], example: user }
+        pets:
+          type: array
+          items:
+            type: object
+            properties:
+              _id: { type: string, example: "66fa1f8f8a4a0b53c1c7e8b9" }
+    CreateUserInput:
+      type: object
+      required: [first_name, last_name, email, password]
+      properties:
+        first_name: { type: string, example: "Ana" }
+        last_name:  { type: string, example: "García" }
+        email:      { type: string, format: email, example: "ana.garcia@example.com" }
+        password:   { type: string, format: password, example: "Secreta123" }
+        role:       { type: string, enum: [user, admin], example: user }
+    UpdateUserInput:
+      type: object
+      properties:
+        first_name: { type: string, example: "Ana María" }
+        last_name:  { type: string, example: "García" }
+        role:       { type: string, enum: [user, admin], example: admin }
+    ApiError:
+      type: object
+      properties:
+        status: { type: string, example: error }
+        error:  { type: string, example: User not found }
+    ApiListUsersResponse:
+      type: object
+      properties:
+        status:  { type: string, example: success }
+        payload: { type: array, items: { $ref: "#/components/schemas/User" } }
+    ApiUserResponse:
+      type: object
+      properties:
+        status:  { type: string, example: success }
+        payload: { $ref: "#/components/schemas/User" }
+    ApiMessageResponse:
+      type: object
+      properties:
+        status:  { type: string, example: success }
+        message: { type: string, example: User updated }
+
+paths:
+  /api/users:
+    get:
+      summary: Listar todos los usuarios
+      tags: [Users]
+      responses:
+        "200":
+          description: Lista de usuarios
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ApiListUsersResponse"
+        "500":
+          description: Error del servidor
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ApiError"
+
+  /api/users/{uid}:
+    get:
+      summary: Obtener un usuario por id
+      tags: [Users]
+      parameters:
+        - in: path
+          name: uid
+          required: true
+          schema: { type: string }
+      responses:
+        "200":
+          description: Usuario encontrado
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ApiUserResponse"
+        "404":
+          description: Usuario no encontrado
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ApiError"
+    put:
+      summary: Actualizar un usuario
+      tags: [Users]
+      parameters:
+        - in: path
+          name: uid
+          required: true
+          schema: { type: string }
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/UpdateUserInput"
+      responses:
+        "200":
+          description: Actualizado
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ApiMessageResponse"
+        "404":
+          description: Usuario no encontrado
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ApiError"
+    delete:
+      summary: Eliminar un usuario
+      tags: [Users]
+      parameters:
+        - in: path
+          name: uid
+          required: true
+          schema: { type: string }
+      responses:
+        "200":
+          description: Eliminado
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ApiMessageResponse"
+        "404":
+          description: Usuario no encontrado
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ApiError"
