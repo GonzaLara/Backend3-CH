@@ -1,7 +1,5 @@
 import express from 'express';
-import mongoose from 'mongoose';
 import cookieParser from 'cookie-parser';
-import dotenv from 'dotenv';
 import mocksRouter from './routes/mocks.router.js';
 import usersRouter from './routes/users.router.js';
 import petsRouter from './routes/pets.router.js';
@@ -10,15 +8,13 @@ import sessionsRouter from './routes/sessions.router.js';
 import swaggerUi from 'swagger-ui-express';
 import swaggerSpec from './docs/swagger.js';
 
-dotenv.config();
-
 const app = express();
-const PORT = process.env.PORT || 8080;
 
-
+// Middlewares
 app.use(express.json());
 app.use(cookieParser());
 
+// Rutas
 app.use('/api/users', usersRouter);
 app.use('/api/pets', petsRouter);
 app.use('/api/adoptions', adoptionsRouter);
@@ -26,11 +22,4 @@ app.use('/api/sessions', sessionsRouter);
 app.use('/api/mocks', mocksRouter);
 app.use('/api/docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 
-app.listen(PORT, () => console.log(`Servidor escuchando en http://localhost:${PORT}`));
-
-try {
-    await mongoose.connect(process.env.MONGO_URI)
-    console.log('Base de datos conectada')
-} catch (error) {
-    console.log(`Error de conexion: ${error.message}`)
-}
+export default app;
