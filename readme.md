@@ -9,6 +9,7 @@ https://hub.docker.com/r/exelara/adopciones-api
 docker build -t exelara/adopciones-api:latest .
 
 ## 💻 Windows PowerShell( ` como continuador de linea)
+```powershell
 docker run --name adopciones-api `
   -p 4000:4000 `
   -e PORT=4000 `
@@ -16,16 +17,18 @@ docker run --name adopciones-api `
   -e JWT_SECRET="mi_clave" `
   exelara/adopciones-api:latest
 -Reemplazar <user>, <pass> y <db> por los datos de tu cuenta de MongoDB Atlas.
+```
 
 ## 💻 Linux / Mac ( \ como continuador de linea)
+```bash
 docker run --name adopciones-api \
   -p 4000:4000 \
   -e PORT=4000 \
   -e MONGO_URI="mongodb+srv://<user>:<pass>@cluster0.lhgghkl.mongodb.net/<db>" \
   -e JWT_SECRET="mi_clave" \
   exelara/adopciones-api:latest
-
 -Reemplazar <user>, <pass> y <db> por los datos de tu cuenta de MongoDB Atlas.
+```
 
 ## 🔑 Variables de entorno requeridas
 - `MONGO_URI`: Cadena de conexion a tu base MongoDB Atlas.  
