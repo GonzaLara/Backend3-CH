@@ -16,7 +16,7 @@ components:
       properties:
         _id: { type: string, example: "66fa1f8f8a4a0b53c1c7e8b2" }
         first_name: { type: string, example: "Juan" }
-        last_name:  { type: string, example: "Pérez" }
+        last_name:  { type: string, example: "Perez" }
         email:      { type: string, example: "juan.perez@example.com" }
         role:       { type: string, enum: [user, admin], example: user }
         pets:
@@ -30,15 +30,15 @@ components:
       required: [first_name, last_name, email, password]
       properties:
         first_name: { type: string, example: "Ana" }
-        last_name:  { type: string, example: "García" }
+        last_name:  { type: string, example: "Garcia" }
         email:      { type: string, format: email, example: "ana.garcia@example.com" }
-        password:   { type: string, format: password, example: "Secreta123" }
+        password:   { type: string, format: password, example: "contra123" }
         role:       { type: string, enum: [user, admin], example: user }
     UpdateUserInput:
       type: object
       properties:
-        first_name: { type: string, example: "Ana María" }
-        last_name:  { type: string, example: "García" }
+        first_name: { type: string, example: "Ana Maria" }
+        last_name:  { type: string, example: "Garcia" }
         role:       { type: string, enum: [user, admin], example: admin }
     ApiError:
       type: object

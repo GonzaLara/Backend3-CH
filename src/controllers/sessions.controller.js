@@ -7,12 +7,11 @@ const COOKIE_NAME = 'coderCookie';
 const UNPROTECTED_COOKIE = 'unprotectedCookie';
 const isProd = process.env.NODE_ENV === 'production';
 
-// Opciones de cookie (más seguras)
 const baseCookieOpts = {
   httpOnly: true,
   sameSite: isProd ? 'lax' : 'lax',
-  secure: isProd,          // true en prod con HTTPS
-  maxAge: 60 * 60 * 1000,  // 1h
+  secure: isProd,
+  maxAge: 60 * 60 * 1000,
 };
 
 const register = async (req, res) => {
@@ -63,24 +62,21 @@ const current = async (req, res) => {
     const user = verifyToken(token);
     return res.send({ status: "success", payload: user });
   } catch (error) {
-    // Token expirado o inválido
-    return res.status(401).send({ status: "error", error: "Invalid or expired token" });
+    return res.status(401).send({ status: "error", error: "Token invalido o expirado" });
   }
 };
 
-// Endpoints “no protegidos” (para demo/testing)
 const unprotectedLogin = async (req, res) => {
   try {
     const { email, password } = req.body;
-    if (!email || !password) return res.status(400).send({ status: "error", error: "Incomplete values" });
+    if (!email || !password) return res.status(400).send({ status: "error", error: "Valores incompletos" });
 
     const user = await usersService.getUserByEmail(email);
-    if (!user) return res.status(404).send({ status: "error", error: "User doesn't exist" });
+    if (!user) return res.status(404).send({ status: "error", error: "El usuario no existe" });
 
     const isValidPassword = await passwordValidation(user, password);
-    if (!isValidPassword) return res.status(400).send({ status: "error", error: "Incorrect password" });
+    if (!isValidPassword) return res.status(400).send({ status: "error", error: "Contraseña incorrecta" });
 
-    // Acá estabas firmando el user entero; mejor firmar un payload mínimo
     const payload = UserDTO.getUserTokenFrom(user);
     const token = signToken(payload, { expiresIn: '1h' });
 
@@ -100,7 +96,7 @@ const unprotectedCurrent = async (req, res) => {
     const user = verifyToken(token);
     return res.send({ status: "success", payload: user });
   } catch (error) {
-    return res.status(401).send({ status: "error", error: "Invalid or expired token" });
+    return res.status(401).send({ status: "error", error: "Token invalido o expirado" });
   }
 };
 
