@@ -34,15 +34,15 @@ docker run --name adopciones-api \
 
 ## 📋 Uso del proyecto
 Una vez que el contenedor este corriendo:
-- Swagger UI (documentacion interactiva):
-    🔸http://localhost:4000/api/docs
-- Endpoints principales:
-    🔹GET /api/users → Listado de usuarios
-    🔹GET /api/pets → Listado de mascotas
-    🔹POST /api/pets → Crear mascota
-    🔹POST /api/sessions/register → Registrar usuario
-    🔹POST /api/adoptions/:uid/:pid → Crear adopción
-    🔹GET /api/adoptions → Listado de adopciones
+- Swagger UI (documentacion interactiva):  
+    🔸http://localhost:4000/api/docs  
+- Endpoints principales:  
+    🔹GET /api/users → Listado de usuarios  
+    🔹GET /api/pets → Listado de mascotas  
+    🔹POST /api/pets → Crear mascota  
+    🔹POST /api/sessions/register → Registrar usuario  
+    🔹POST /api/adoptions/:uid/:pid → Crear adopcion  
+    🔹GET /api/adoptions → Listado de adopciones  
     🔹GET /api/adoptions/:aid → Detalle de adopcion
 
 ### 🧪 Tests
