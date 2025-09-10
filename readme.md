@@ -1,6 +1,6 @@
-# 🐾 API Adopciones (Node.js + Express + MongoDB)
+# 🐾 Adopciones
 Backend para gestionar usuarios, mascotas y adopciones.  
-Incluye autenticacion por JWT (cookie), documentacion Swagger y tests funcionales con Mocha/Chai/Supertest.
+Incluye autenticacion por JWT, documentacion Swagger y tests funcionales con Mocha/Chai/Supertest.
 
 ## 📂 Imagen publica en Docker Hub
 https://hub.docker.com/r/exelara/adopciones-api
